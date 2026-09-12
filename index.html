@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI Agent·백엔드 엔지니어 진준형의 이력서. 공공문서 RAG 서비스, AWS 배포 환경 구축, 학회지 게재 논문.">
+<meta name="author" content="진준형">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="진준형 이력서">
+<meta property="og:description" content="AI Agent·백엔드 엔지니어. 공공문서 RAG 서비스, AWS 배포 환경 구축, 학회지 게재 논문.">
+<meta name="theme-color" content="#a75f12">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#129489;&#8205;&#128187;</text></svg>">
+<title>진준형 이력서</title>
+<style>
+  html { color-scheme: light dark; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600&display=swap">
+
+<style>
+  /* 라이트 팔레트 — 차가운 슬레이트 바탕에 신호등 오커 악센트.
+     계측과 제어를 다루는 이력이라 '표시등' 성격의 따뜻한 악센트를 하나만 쓴다. */
+  :root {
+    --ground:   #f6f7f9;
+    --surface:  #ffffff;
+    --ink:      #14181d;
+    --muted:    #5b6570;
+    --faint:    #8b949e;
+    --line:     #e2e6ea;
+    --line-soft:#eceff2;
+    --accent:   #a75f12;
+    --accent-bg:#f6ecdf;
+
+    --sans: "IBM Plex Sans KR", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --serif: "Noto Serif KR", "Apple SD Gothic Neo", serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #131619;
+      --surface:  #1a1e22;
+      --ink:      #e7eaed;
+      --muted:    #98a1aa;
+      --faint:    #6d767f;
+      --line:     #2a3036;
+      --line-soft:#22272c;
+      --accent:   #e0a75f;
+      --accent-bg:#2b2118;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:   #131619;
+    --surface:  #1a1e22;
+    --ink:      #e7eaed;
+    --muted:    #98a1aa;
+    --faint:    #6d767f;
+    --line:     #2a3036;
+    --line-soft:#22272c;
+    --accent:   #e0a75f;
+    --accent-bg:#2b2118;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+
+  /* ---------- 머리글 ---------- */
+
+  .masthead { border-bottom: 2px solid var(--accent); padding-bottom: 22px; }
+
+  .name {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(30px, 6vw, 40px);
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .name .latin { color: var(--faint); font-size: 0.5em; font-family: var(--mono); font-weight: 400; margin-left: 10px; letter-spacing: 0; }
+
+  .role {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 10px 0 0;
+  }
+
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 22px;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .contacts a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .contacts a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .thesis {
+    margin: 26px 0 0;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 62ch;
+    color: var(--ink);
+  }
+  .thesis strong { font-weight: 600; box-shadow: inset 0 -0.42em 0 var(--accent-bg); }
+
+  /* ---------- 섹션: 넓은 화면에서 라벨 레일 + 본문 ---------- */
+
+  section { margin-top: 46px; }
+
+  .sec-label {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (min-width: 900px) {
+    section { display: grid; grid-template-columns: 132px 1fr; gap: 34px; align-items: start; }
+    .sec-label { border-bottom: none; padding-bottom: 0; margin: 4px 0 0; text-align: right; }
+  }
+
+  /* ---------- 기술 스택 ---------- */
+
+  .stack { display: grid; gap: 2px; }
+  .stack-row {
+    display: grid;
+    gap: 2px 18px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .stack-row:last-child { border-bottom: none; }
+  @media (min-width: 620px) { .stack-row { grid-template-columns: 108px 1fr; } }
+
+  .stack-key {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--faint);
+    letter-spacing: 0.04em;
+    padding-top: 2px;
+  }
+  .stack-val { color: var(--ink); }
+
+  /* ---------- 항목 ---------- */
+
+  .entries { display: grid; gap: 34px; }
+
+  .entry { break-inside: avoid; }
+
+  .entry-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+
+  .entry-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .when {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--faint);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .when.live { color: var(--accent); }
+
+  .meta {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 2px 7px;
+    white-space: nowrap;
+  }
+
+  .links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 9px; font-family: var(--mono); font-size: 12.5px; }
+  .links a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  .links a:hover { border-bottom-color: var(--accent); }
+
+  .pubs {
+    margin: 11px 0 0;
+    padding: 0 0 0 13px;
+    list-style: none;
+    display: grid;
+    gap: 6px;
+    border-left: 2px solid var(--line);
+  }
+  .pubs li { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+  .pub-kind {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    color: var(--accent);
+    margin-right: 8px;
+  }
+  .arc { display: block; margin-top: 6px; color: var(--ink); }
+
+  .owned {
+    margin: 13px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--accent-bg);
+    border-left: 2px solid var(--accent);
+    padding: 6px 12px;
+    display: inline-block;
+    border-radius: 0 3px 3px 0;
+  }
+
+  ul.points { margin: 13px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+  ul.points li { position: relative; padding-left: 16px; }
+  ul.points li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 0.72em;
+    width: 5px; height: 1px;
+    background: var(--faint);
+  }
+  ul.points strong { font-weight: 600; }
+
+  /* 측정값은 고정폭으로 — 재는 습관이 드러나는 지점 */
+  .num { font-family: var(--mono); font-size: 0.93em; font-variant-numeric: tabular-nums; }
+
+  /* ---------- 간단 목록 (학력·자격) ---------- */
+
+  .facts { display: grid; gap: 14px; }
+  .fact { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .fact-main { font-weight: 500; }
+  .fact-sub { color: var(--muted); font-size: 13.5px; }
+
+  .curriculum {
+    margin: 12px 0 0;
+    padding: 13px 15px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: var(--muted);
+    overflow-x: auto;
+  }
+  .curriculum b { color: var(--ink); font-weight: 600; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--faint);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    justify-content: space-between;
+  }
+
+  a:focus-visible, .contacts a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  /* ---------- 인쇄 / PDF 저장 ---------- */
+  @media print {
+    :root {
+      --ground: #fff; --surface: #fff; --ink: #000; --muted: #333;
+      --faint: #666; --line: #ccc; --line-soft: #e5e5e5;
+      --accent: #8a4f0d; --accent-bg: #f2ece3;
+    }
+    body { font-size: 10.5pt; line-height: 1.55; }
+    .sheet { max-width: none; padding: 0; }
+    section { margin-top: 22px; page-break-inside: auto; }
+    .entry, .fact { page-break-inside: avoid; }
+    .entries { gap: 20px; }
+    footer { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <h1 class="name">진준형<span class="latin">Jun-Hyeong Jin</span></h1>
+    <p class="role">AI Agent Engineer · Backend Engineer</p>
+    <div class="contacts">
+      <a href="mailto:junhyeong7757@gmail.com">junhyeong7757@gmail.com</a>
+      <a href="https://github.com/jjh7757" target="_blank" rel="noopener">github.com/jjh7757</a>
+      <a href="https://github.com/jjh7757/TIL" target="_blank" rel="noopener">학습 기록 (TIL)</a>
+    </div>
+  </header>
+
+  <p class="thesis">
+    <strong>만드는 데서 멈추지 않고 배포하고 운영까지 가져가는 것</strong>을 강점으로 삼고 있습니다.
+    학부 졸업연구에서 센서·임베디드·AI 모델·백엔드·클라우드를 하나로 연결해 논문으로 게재했고,
+    지금은 LLM 에이전트와 RAG를 같은 방식으로 다루고 있습니다.
+    직접 만든 AWS 배포 환경 위에 RAG 서비스를 올려 운영 중이며,
+    구축 과정과 트러블슈팅을 공개 저장소에 기록하고 있습니다.
+  </p>
+
+  <section>
+    <h2 class="sec-label">기술 스택</h2>
+    <div class="stack">
+      <div class="stack-row">
+        <div class="stack-key">AI / LLM</div>
+        <div class="stack-val">LangChain, LangGraph, RAG(청킹·임베딩·하이브리드 검색·평가), Function Calling, MCP, Gemini API, Claude API</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-key">언어</div>
+        <div class="stack-val">Python, TypeScript</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-key">백엔드 / 웹</div>
+        <div class="stack-val">FastAPI, Flask, Next.js, Supabase(PostgreSQL)</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-key">인프라 / 배포</div>
+        <div class="stack-val">AWS(EC2, ECR, IAM, SSM, VPC), Docker, Docker Compose, GitHub Actions, Caddy, 네이버클라우드</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-key">데이터 / 도구</div>
+        <div class="stack-val">Chroma, BM25, n8n, Git</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-label">프로젝트</h2>
+    <div class="entries">
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">공공문서 RAG 질의응답 서비스</h3>
+          <span class="when live">2026.09 ~ 운영 중</span>
+        </div>
+        <p class="meta">정부 보도자료·계획 문서 <span class="num">11</span>건에 질문하면 근거 문단을 찾아 답하는 서비스. 개인 프로젝트(1인).</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">LangChain</span>
+          <span class="tag">Chroma</span><span class="tag">Gemini API</span><span class="tag">Docker</span><span class="tag">AWS</span>
+        </div>
+        <div class="links">
+          <a href="https://rag.ai-agent-develop.cloud" target="_blank" rel="noopener">서비스 바로가기 ↗</a>
+          <a href="https://github.com/jjh7757/rag-web" target="_blank" rel="noopener">코드 ↗</a>
+        </div>
+        <ul class="points">
+          <li>벡터 검색과 BM25를 RRF로 결합한 <strong>하이브리드 검색</strong> 구현. 한국어 정확 매칭을 위해 형태소 분석기(Kiwi)를 BM25 토크나이저로 연결</li>
+          <li>검색 전략 <span class="num">4</span>종(hybrid·similarity·MMR·BM25)을 화면에서 바꿔가며 같은 질문의 결과를 비교할 수 있도록 구성</li>
+          <li><strong>인덱스를 백그라운드 스레드에서 구축.</strong> 기동을 막으면 헬스체크가 실패해 리버스 프록시가 <span class="num">502</span>를 내는 문제를 확인하고, 서버는 즉시 기동하되 준비 전 요청에는 진행 상황과 함께 <span class="num">503</span>을 반환하도록 설계</li>
+          <li>문서 구성·청킹 설정으로 fingerprint를 만들어 <strong>인덱스 재사용 여부를 판단</strong>. 재배포마다 임베딩을 반복하지 않도록 볼륨에 보존</li>
+          <li>공개 URL이므로 질의 한 건이 곧 LLM API 호출인 점을 고려해 <strong>IP별 요청 제한과 전체 일일 상한</strong> 적용</li>
+          <li>결과: 문서 <span class="num">11</span>건 / 청크 <span class="num">520</span>개, 인덱스 구축 <span class="num">64</span>초, 검색 <span class="num">0.8</span>초 · 생성 <span class="num">2.5</span>초</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">AWS 배포 환경 구축</h3>
+          <span class="when">2026.09</span>
+        </div>
+        <p class="meta"><code class="num">git push</code> 한 번으로 빌드부터 HTTPS 서비스까지 끝나는 개인 배포 환경. 개인 프로젝트(1인).</p>
+        <div class="tags">
+          <span class="tag">AWS EC2·ECR·IAM·SSM</span><span class="tag">GitHub Actions</span>
+          <span class="tag">OIDC</span><span class="tag">Docker</span><span class="tag">Caddy</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/jjh7757/TIL/tree/master/AWS배포환경" target="_blank" rel="noopener">구축 기록 ↗</a>
+        </div>
+        <ul class="points">
+          <li>GitHub Actions에서 arm64 이미지를 빌드해 ECR에 올리고, <strong>SSM Run Command로 EC2에 반영</strong>하는 파이프라인 구성</li>
+          <li><strong>GitHub OIDC로 임시 자격증명을 발급</strong>받도록 구성해 장기 액세스 키를 만들지 않음. 권한은 배포 대상 인스턴스 ARN까지 좁힘</li>
+          <li>SSH 포트를 열지 않고 Session Manager로 접속. SSH 키는 SSM 장애 시 복구 수단으로만 등록</li>
+          <li>이전 프로젝트에서 저사양 서버 내 반복 빌드로 디스크 고갈을 겪은 경험을 반영해 <strong>빌드를 CI로 분리</strong>. 서버는 이미지를 받아 교체만 수행</li>
+          <li>OIDC 인증이 반복 실패했을 때, 추측 대신 워크플로에서 실제 토큰 클레임을 출력해 원인을 특정 (GitHub이 <code class="num">sub</code> 클레임에 숫자 ID를 포함하도록 바꾸었으나 콘솔 마법사는 구형식을 생성하고 있었음)</li>
+          <li>워크플로에 원격 명령 결과 검증을 넣어, <strong>배포는 성공했으나 스크립트가 실패로 종료되는 상황</strong>을 실제로 검출</li>
+          <li>구축 계획·단계별 절차·트러블슈팅·재사용 템플릿을 문서로 공개</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">왜샀어(WhyBuy) — 근거를 남겨야 완료되는 모의투자 서비스</h3>
+          <span class="when live">2026.08 ~ 운영 중</span>
+        </div>
+        <p class="meta">매수·매도 주문 전에 판단 근거를 남기도록 강제하고, 이후 결과와 대조해 보여주는 웹 서비스. 개인 프로젝트(1인).</p>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Supabase</span>
+          <span class="tag">한국투자증권 Open API</span><span class="tag">Gemini API</span><span class="tag">Docker</span>
+        </div>
+        <div class="links">
+          <a href="https://whybuy.ai-agent-develop.cloud" target="_blank" rel="noopener">서비스 바로가기 ↗</a>
+          <a href="https://github.com/jjh7757/whybuy" target="_blank" rel="noopener">코드 ↗</a>
+        </div>
+        <ul class="points">
+          <li>증권사 API의 <strong>초당 <span class="num">1</span>건 호출 제한(EGW00201)</strong>을 전역 큐로 <span class="num">1.1</span>초 간격을 보장해 해결</li>
+          <li>서버리스 환경에서는 인스턴스마다 큐가 분리돼 간격 보장이 깨진다는 <strong>구조적 결함을 발견</strong>하고, 상주 프로세스가 필요하다고 판단해 <strong>Docker 셀프호스팅으로 이관</strong></li>
+          <li>지정가 주문 도입에 따라 “주문 = 체결”이라는 전제가 깨지면서 <strong>주문 상태 모델을 재설계</strong></li>
+          <li>리버스 프록시 뒤에서 로그인 리다이렉트가 컨테이너 내부 호스트명으로 향하던 버그를 추적·수정</li>
+          <li>공유 모의계좌 운영이 자본시장법상 문제가 될 수 있는지 검토해 서비스 범위를 조정</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">그 외</h3>
+        </div>
+        <ul class="points">
+          <li><strong>예산관리 Agent</strong> — Gemini Function Calling으로 자연어 거래 등록·검색·수정과 예산 조회를 도구로 노출. 구글시트를 저장소로 사용. LLM이 스키마 제약으로도 막히지 않는 인자를 생성하는 문제 등 <span class="num">8</span>건의 트러블슈팅 정리</li>
+          <li><strong>n8n 자동화 <span class="num">3</span>건</strong> — 고객 VOC 자동 분류·긴급 알림, 금융 뉴스 수집·요약 브리핑, 증권 API 연동 텔레그램 봇. 중복 방지와 검증 안전판을 포함한 무인 파이프라인 구성</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-label">연구</h2>
+    <div class="entries">
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">사물인터넷을 활용한 자동 방지턱 시스템</h3>
+          <span class="when live">제1저자 · 팀장</span>
+        </div>
+        <ul class="pubs">
+          <li><span class="pub-kind">학회지</span> 사물인터넷융복합논문지(JKIOTS) 제<span class="num">12</span>권 제<span class="num">4</span>호, <span class="num">2026.08</span> 게재 · DOI <span class="num">10.20465/KIOTS.2026.12.4.001</span></li>
+          <li><span class="pub-kind">학술대회</span> 한국사물인터넷학회 종합학술대회 포스터 발표 · 논문집 게재(<span class="num">2024</span>, pp.<span class="num">84–86</span>) · 우수논문상</li>
+        </ul>
+        <p class="meta">
+          과속 차량에만 선택적으로 작동하고 긴급차량은 통과시키는 가변형 방지턱 시스템. 학부 졸업연구(학생 <span class="num">3</span>인 + 지도교수).
+          경량화 YOLO로 차량 종류를 식별하고 센서로 속도를 판단해 액추에이터를 제어하며, 웹으로 원격 관제한다.
+          <span class="arc">삼성중공업 연계 캡스톤디자인(<span class="num">2024</span>)으로 시작해 학술대회에 발표하고, 이후 내용을 보완해 학회지에 게재했다.</span>
+        </p>
+        <p class="owned">담당 · 팀장 · 센서 연동 · 웹 관제 시스템 · 전체 통합 · 논문 작성</p>
+        <ul class="points">
+          <li><strong>이중 속도 측정 구조 설계</strong> — 로드셀 기반 구간 속도와 레이더(TRM-121A) 기반 순간 속도를 교차 검증해 단일 센서의 측정 오차를 보완</li>
+          <li>Arduino Uno(센서 수집)와 Jetson Nano(객체 인식·제어)를 시리얼 통신으로 연동하고, 두 보드의 판단 결과를 통합해 액추에이터를 제어</li>
+          <li><strong>내부망 장비와 외부 클라우드를 Reverse SSH Tunnel로 연결</strong> — Jetson Nano의 Flask 서버를 AWS EC2의 Spring 서버가 호출하는 구조로 웹 관제 시스템 구현</li>
+          <li>관리자가 실시간 영상·차량 종류·속도를 확인하고, 과속 임곗값 조정과 액추에이터 수동 제어를 수행하도록 구성</li>
+          <li>강우 시 노면 미끄러짐을 고려해 방지턱이 작동하지 않도록 하는 안전 조건을 센서 로직에 반영</li>
+          <li>차량 인식 모델의 학습 데이터 구축(<span class="num">3</span>개 클래스, <span class="num">16,500</span>장 라벨링)에 참여</li>
+          <li><strong>제1저자로 논문을 작성</strong>해 학회지 게재</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-label">교육</h2>
+    <div class="entries">
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">AI.M 1기 — AI 에이전트 엔지니어 트랙</h3>
+          <span class="when">2026.07 ~ 2027.01 수료 예정</span>
+        </div>
+        <p class="meta">총 <span class="num">984</span>시간</p>
+        <div class="curriculum">
+          LLM·AI Agent 이해 → Python·AI API 웹개발 → LangChain 기반 Agent 개발 →
+          <b>Multi-Agent Orchestration</b> → <b>LLM·RAG 시스템 설계 및 구현</b> → AI 모델링 → AI 프로덕션 개발
+        </div>
+        <ul class="points">
+          <li>학습 내용을 매일 정리해 공개 저장소에 기록</li>
+          <li>RAG는 파이프라인 구성에 그치지 않고 <strong>검색 평가(Hit@k·Precision@k·MRR)와 답변 평가(RAGAS·LLM-as-Judge)를 분리 측정</strong>하는 방법까지 학습·정리</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-label">학력 · 자격</h2>
+    <div class="facts">
+      <div class="fact">
+        <span class="fact-main">부경대학교 컴퓨터공학부 컴퓨터공학전공</span>
+        <span class="when">2019.03 ~ 2025.02 졸업</span>
+        <span class="fact-sub">학점 <span class="num">3.96</span> / <span class="num">4.5</span></span>
+      </div>
+      <div class="fact">
+        <span class="fact-main">정보처리기사</span>
+        <span class="when">2025.06</span>
+        <span class="fact-sub">한국산업인력공단</span>
+      </div>
+      <div class="fact">
+        <span class="fact-main">한국사물인터넷학회 종합학술대회 우수논문상</span>
+        <span class="when">2024</span>
+      </div>
+      <div class="fact">
+        <span class="fact-main">정보융합대학 융합캡스톤디자인 경진대회 장려상</span>
+        <span class="when">2024</span>
+        <span class="fact-sub">부경대학교</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>진준형 · junhyeong7757@gmail.com</span>
+    <span>최종 수정 2026.09</span>
+  </footer>
+
+</div>
+</body>
+</html>
