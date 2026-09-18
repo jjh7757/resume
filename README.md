@@ -2,7 +2,8 @@
 
 진준형 — AI Agent / 백엔드 엔지니어
 
-**https://jjh7757.github.io/resume/**
+- 이력서 — https://jjh7757.github.io/resume/
+- 자기소개서 — https://jjh7757.github.io/resume/cover-letter.html
 
 정적 HTML 한 장입니다. 라이트·다크 테마와 인쇄(PDF 저장)를 모두 지원합니다.
 
