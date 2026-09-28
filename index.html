@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="AI Agent·백엔드 엔지니어 진준형의 이력서. 공공문서 RAG 서비스, AWS 배포 환경 구축, 학회지 게재 논문.">
+<meta name="description" content="AI Agent·백엔드 엔지니어 진준형의 이력서. LangGraph 기반 금융 에이전트, 모의투자 서비스, 학회지 게재 논문.">
 <meta name="author" content="진준형">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="진준형 이력서">
-<meta property="og:description" content="AI Agent·백엔드 엔지니어. 공공문서 RAG 서비스, AWS 배포 환경 구축, 학회지 게재 논문.">
+<meta property="og:description" content="AI Agent·백엔드 엔지니어. LangGraph 기반 금융 에이전트, 모의투자 서비스, 학회지 게재 논문.">
 <meta name="theme-color" content="#a75f12">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#129489;&#8205;&#128187;</text></svg>">
 <title>진준형 이력서</title>
@@ -345,7 +345,7 @@
     <strong>만드는 데서 멈추지 않고 배포하고 운영까지 가져가는 것</strong>을 강점으로 삼고 있습니다.
     학부 졸업연구에서 센서·임베디드·AI 모델·백엔드·클라우드를 하나로 연결해 논문으로 게재했고,
     지금은 LLM 에이전트와 RAG를 같은 방식으로 다루고 있습니다.
-    직접 만든 AWS 배포 환경 위에 RAG 서비스를 올려 운영 중이며,
+    직접 만든 AWS 배포 환경 위에 LangGraph 기반 금융 에이전트를 올려 운영 중이며,
     구축 과정과 트러블슈팅을 공개 저장소에 기록하고 있습니다.
   </p>
 
@@ -381,49 +381,24 @@
 
       <article class="entry">
         <div class="entry-head">
-          <h3 class="entry-title">공공문서 RAG 질의응답 서비스</h3>
+          <h3 class="entry-title">LangGraph 기반 금융 에이전트 — 계좌·카드·청구서 관리</h3>
           <span class="when live">2026.09 ~ 운영 중</span>
         </div>
-        <p class="meta">정부 보도자료·계획 문서 <span class="num">11</span>건에 질문하면 근거 문단을 찾아 답하는 서비스. 개인 프로젝트(1인).</p>
+        <p class="meta">자연어로 계좌 이체·카드 정지/재발급·청구서 납부를 요청하면, 상태를 바꾸는 작업만 승인을 받은 뒤 실행하는 대화형 에이전트. 개인 프로젝트(1인).</p>
         <div class="tags">
-          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">LangChain</span>
-          <span class="tag">Chroma</span><span class="tag">Gemini API</span><span class="tag">Docker</span><span class="tag">AWS</span>
+          <span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Gemini API</span><span class="tag">Docker</span>
         </div>
         <div class="links">
-          <a href="https://rag.ai-agent-develop.cloud" target="_blank" rel="noopener">서비스 바로가기 ↗</a>
-          <a href="https://github.com/jjh7757/rag-web" target="_blank" rel="noopener">코드 ↗</a>
+          <a href="https://virtual-financial-services.ai-agent-develop.cloud" target="_blank" rel="noopener">서비스 바로가기 ↗</a>
+          <a href="https://github.com/jjh7757/langgraph_mini" target="_blank" rel="noopener">코드 ↗</a>
         </div>
         <ul class="points">
-          <li>벡터 검색과 BM25를 RRF로 결합한 <strong>하이브리드 검색</strong> 구현. 한국어 정확 매칭을 위해 형태소 분석기(Kiwi)를 BM25 토크나이저로 연결</li>
-          <li>검색 전략 <span class="num">4</span>종(hybrid·similarity·MMR·BM25)을 화면에서 바꿔가며 같은 질문의 결과를 비교할 수 있도록 구성</li>
-          <li><strong>인덱스를 백그라운드 스레드에서 구축.</strong> 기동을 막으면 헬스체크가 실패해 리버스 프록시가 <span class="num">502</span>를 내는 문제를 확인하고, 서버는 즉시 기동하되 준비 전 요청에는 진행 상황과 함께 <span class="num">503</span>을 반환하도록 설계</li>
-          <li>문서 구성·청킹 설정으로 fingerprint를 만들어 <strong>인덱스 재사용 여부를 판단</strong>. 재배포마다 임베딩을 반복하지 않도록 볼륨에 보존</li>
-          <li>공개 URL이므로 질의 한 건이 곧 LLM API 호출인 점을 고려해 <strong>IP별 요청 제한과 전체 일일 상한</strong> 적용</li>
-          <li>결과: 문서 <span class="num">11</span>건 / 청크 <span class="num">520</span>개, 인덱스 구축 <span class="num">64</span>초, 검색 <span class="num">0.8</span>초 · 생성 <span class="num">2.5</span>초</li>
-        </ul>
-      </article>
-
-      <article class="entry">
-        <div class="entry-head">
-          <h3 class="entry-title">AWS 배포 환경 구축</h3>
-          <span class="when">2026.09</span>
-        </div>
-        <p class="meta"><code class="num">git push</code> 한 번으로 빌드부터 HTTPS 서비스까지 끝나는 개인 배포 환경. 개인 프로젝트(1인).</p>
-        <div class="tags">
-          <span class="tag">AWS EC2·ECR·IAM·SSM</span><span class="tag">GitHub Actions</span>
-          <span class="tag">OIDC</span><span class="tag">Docker</span><span class="tag">Caddy</span>
-        </div>
-        <div class="links">
-          <a href="https://github.com/jjh7757/TIL/tree/master/AWS배포환경" target="_blank" rel="noopener">구축 기록 ↗</a>
-        </div>
-        <ul class="points">
-          <li>GitHub Actions에서 arm64 이미지를 빌드해 ECR에 올리고, <strong>SSM Run Command로 EC2에 반영</strong>하는 파이프라인 구성</li>
-          <li><strong>GitHub OIDC로 임시 자격증명을 발급</strong>받도록 구성해 장기 액세스 키를 만들지 않음. 권한은 배포 대상 인스턴스 ARN까지 좁힘</li>
-          <li>SSH 포트를 열지 않고 Session Manager로 접속. SSH 키는 SSM 장애 시 복구 수단으로만 등록</li>
-          <li>이전 프로젝트에서 저사양 서버 내 반복 빌드로 디스크 고갈을 겪은 경험을 반영해 <strong>빌드를 CI로 분리</strong>. 서버는 이미지를 받아 교체만 수행</li>
-          <li>OIDC 인증이 반복 실패했을 때, 추측 대신 워크플로에서 실제 토큰 클레임을 출력해 원인을 특정 (GitHub이 <code class="num">sub</code> 클레임에 숫자 ID를 포함하도록 바꾸었으나 콘솔 마법사는 구형식을 생성하고 있었음)</li>
-          <li>워크플로에 원격 명령 결과 검증을 넣어, <strong>배포는 성공했으나 스크립트가 실패로 종료되는 상황</strong>을 실제로 검출</li>
-          <li>구축 계획·단계별 절차·트러블슈팅·재사용 템플릿을 문서로 공개</li>
+          <li>이체·카드 정지/재발급·청구서 납부처럼 <strong>잔액·상태를 바꾸는 작업은 LangGraph <code class="num">interrupt</code>/<code class="num">resume</code>으로 사용자 승인을 받은 뒤에만 실행</strong>, 조회는 즉시 응답</li>
+          <li>Domain(불변식)·Repository(순수 저장)·Service(흐름 지휘) 계층으로 책임을 분리하고, Java <code class="num">interface</code> 습관 대신 <code class="num">typing.Protocol</code>로 구조적 타이핑 적용</li>
+          <li>"아니, 5만 원만" 같은 <strong>승인 전 수정</strong>, "그 카드 잠가줘" 같은 대명사 지시어 해석, <strong>재시작 후에도 승인 대기 상태를 복구</strong>하는 장애 내성까지 구현</li>
+          <li>PostgreSQL·Redis로 FastAPI 웹 채팅 배포 — CLI와 같은 오케스트레이션 로직을 그대로 재사용하되, 그래프 체크포인터는 프로세스 생애주기 동안 유지하고 DB 쓰기는 요청 단위 트랜잭션으로 경계를 나눔</li>
+          <li>잔액 부족·중복 납부·소유권 위반·불가능한 상태 전이 등 <strong>실패 시나리오 <span class="num">7</span>종을 구조화된 실패로 반환</strong>하도록 설계, 자동화 테스트 <span class="num">199</span>개로 검증</li>
         </ul>
       </article>
 
