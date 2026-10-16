@@ -345,7 +345,7 @@
     <strong>만드는 데서 멈추지 않고 배포하고 운영까지 가져가는 것</strong>을 강점으로 삼고 있습니다.
     학부 졸업연구에서 센서·임베디드·AI 모델·백엔드·클라우드를 하나로 연결해 논문으로 게재했고,
     지금은 LLM 에이전트와 RAG를 같은 방식으로 다루고 있습니다.
-    직접 만든 AWS 배포 환경 위에 LangGraph 기반 금융 에이전트를 올려 운영 중이며,
+    직접 만든 AWS 배포 환경 위에 LangGraph 기반 금융 에이전트와 멀티 에이전트 RAG 챗봇을 올려 운영 중이며,
     구축 과정과 트러블슈팅을 공개 저장소에 기록하고 있습니다.
   </p>
 
@@ -378,6 +378,28 @@
   <section>
     <h2 class="sec-label">프로젝트</h2>
     <div class="entries">
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">멀티 에이전트 PDF RAG 챗봇 — 분야별 상담원에게 위임하는 문서 질의응답</h3>
+          <span class="when live">2026.10 ~ 운영 중</span>
+        </div>
+        <p class="meta">금융·공공·의료·법률·커머스 PDF에 질문하면, 주제에 맞는 분야 상담원(서브 에이전트)에게 위임해 근거와 함께 답하는 챗봇. 개인 프로젝트(1인).</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">Streamlit</span>
+          <span class="tag">Chroma</span><span class="tag">BM25</span><span class="tag">Gemini API</span><span class="tag">Docker</span><span class="tag">AWS</span>
+        </div>
+        <div class="links">
+          <a href="https://chatbot.ai-agent-develop.cloud" target="_blank" rel="noopener">서비스 바로가기 ↗</a>
+          <a href="https://github.com/jjh7757/rag-agent-practice" target="_blank" rel="noopener">코드 ↗</a>
+        </div>
+        <ul class="points">
+          <li><strong>Supervisor가 분야별 서브 에이전트를 도구로 호출</strong>하는 구조. 서브 에이전트는 같은 벡터 DB를 쓰되 metadata 필터로 자기 분야만 검색하고, 여러 분야에 걸친 질문은 답을 모아 하나로 정리</li>
+          <li>벡터 검색과 BM25를 결합한 <strong>하이브리드 검색</strong>, 한국어 정확 매칭을 위해 형태소 분석기(Kiwi)로 BM25 토큰화</li>
+          <li>출처와 그래프·그림은 LLM에 맡기지 않고 <strong>코드로 수집</strong> — 서브 에이전트가 실제 검색한 청크 중 답변에 인용된 (파일, 쪽)만 출처로 표시하고 그 쪽의 이미지를 함께 보여줌</li>
+          <li>기존 배포 절차대로 <strong>ECR·IAM·Caddy·GitHub Actions</strong>에 올려 첫 push에 HTTPS 서비스까지 완료. 이전 배포에서 헬스체크가 실패했던 경험을 반영해 파이썬 기반 헬스체크 적용</li>
+        </ul>
+      </article>
 
       <article class="entry">
         <div class="entry-head">
