@@ -345,7 +345,7 @@
     <strong>만드는 데서 멈추지 않고 배포하고 운영까지 가져가는 것</strong>을 강점으로 삼고 있습니다.
     학부 졸업연구에서 센서·임베디드·AI 모델·백엔드·클라우드를 하나로 연결해 논문으로 게재했고,
     지금은 LLM 에이전트와 RAG를 같은 방식으로 다루고 있습니다.
-    직접 만든 AWS 배포 환경 위에 LangGraph 기반 금융 에이전트와 멀티 에이전트 RAG 챗봇을 올려 운영 중이며,
+    직접 만든 AWS 배포 환경 위에 공시 리스크 모니터링 에이전트, LangGraph 기반 금융 에이전트, 멀티 에이전트 RAG 챗봇을 올려 운영 중이며,
     구축 과정과 트러블슈팅을 공개 저장소에 기록하고 있습니다.
   </p>
 
@@ -362,7 +362,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-key">백엔드 / 웹</div>
-        <div class="stack-val">FastAPI, Flask, Next.js, Supabase(PostgreSQL)</div>
+        <div class="stack-val">FastAPI, Flask, Next.js, React, PostgreSQL, Supabase</div>
       </div>
       <div class="stack-row">
         <div class="stack-key">인프라 / 배포</div>
@@ -378,6 +378,28 @@
   <section>
     <h2 class="sec-label">프로젝트</h2>
     <div class="entries">
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3 class="entry-title">KIC 보유종목 공시 리스크 모니터링 에이전트 — 근거를 인용하고 규정으로 등급을 매기는 경보</h3>
+          <span class="when live">2026.10 ~ 운영 중</span>
+        </div>
+        <p class="meta">한국투자공사(KIC)가 13F로 공개한 보유 <span class="num">650</span>개 기업의 SEC 공시를 매일 수집해, 위험 신호를 원문 인용과 KIC 규정 기준 등급으로 경보하는 에이전트. 「국부펀드 KIC, AI 에이전트 공모전」 출품작, 개인 프로젝트(1인). KIC와 무관하며 공개 자료만 사용.</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">React</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Gemini API</span><span class="tag">Claude API</span><span class="tag">Docker</span><span class="tag">AWS</span>
+        </div>
+        <div class="links">
+          <a href="https://kic.ai-agent-develop.cloud" target="_blank" rel="noopener">서비스 바로가기 ↗</a>
+        </div>
+        <ul class="points">
+          <li><strong>LLM은 사건 유형 선택과 판정 질문(예/아니오)에 원문 인용으로만 답하고, 등급은 공개 판정 기준표를 읽는 코드가 결정</strong>. 인용은 원문과 문자 단위로 대조해, 맞지 않으면 등급을 '불확실'로 두고 사람 검토로 넘김</li>
+          <li>LangGraph로 <strong>선별 → 분석 → 다른 모델 교차 검증 → 불일치 시 재분석(최대 <span class="num">2</span>회) → 사람 검토</strong>를 조건부 간선으로 구성. 위험 공시 <span class="num">51</span>건 판정 초안과 등급 일치 <span class="num">50</span>/<span class="num">51</span></li>
+          <li>값싼 모델 선별이 위험 공시를 놓치는지 <strong>비위험 공시 <span class="num">300</span>건 표본으로 측정해 위험 판정 <span class="num">38</span>건 누락 <span class="num">0</span></strong>. 실제 사건 재생에서는 SVB 파산 이틀 전 공시(<span class="num">2023.03.08</span>)에 첫 잠정 경보</li>
+          <li>운용역이 등록한 투자 논리(종목·전략·위탁)에 공시가 닿는지를 등급과 분리해 표시하고, 운용역 피드백(맞음·틀림·놓침)을 다음 판단에 예시로 넣는 피드백 루프 구현</li>
+          <li>기존 AWS 배포 환경에 올리면서 <strong>SQLite → PostgreSQL 전환</strong> — 호환 계층을 두어 기존 쿼리를 유지하고 <span class="num">19</span>개 표를 행 수 대조로 무손실 이전, 공용 DB·S3 백업에 편입. 매시간 자동 수집과 비상 정지·누락 대조를 운영 화면으로 제공</li>
+        </ul>
+      </article>
 
       <article class="entry">
         <div class="entry-head">
@@ -543,7 +565,7 @@
 
   <footer>
     <span>진준형 · junhyeong7757@gmail.com</span>
-    <span>최종 수정 2026.09</span>
+    <span>최종 수정 2026.10</span>
   </footer>
 
 </div>

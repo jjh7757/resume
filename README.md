@@ -9,6 +9,7 @@
 
 ## 링크
 
+- KIC 보유종목 공시 리스크 모니터링 에이전트 — https://kic.ai-agent-develop.cloud (공모전 출품작, 코드 비공개)
 - 공공문서 RAG 질의응답 — https://rag.ai-agent-develop.cloud ([코드](https://github.com/jjh7757/rag-web))
 - 왜샀어(WhyBuy) — https://whybuy.ai-agent-develop.cloud ([코드](https://github.com/jjh7757/whybuy))
 - 학습 기록 — https://github.com/jjh7757/TIL
